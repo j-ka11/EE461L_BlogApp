@@ -1,3 +1,4 @@
+package blogApp;
 import java.io.IOException;
 
 import org.junit.Assert;
