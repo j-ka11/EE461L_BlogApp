@@ -1,4 +1,8 @@
-/build/
+# Google App Engine generated folder
+appengine-generated/
+build/
+.DS_Store
 .classpath
 .project
 .settings/
+src/main/webapp/META-INF/MANIFEST.MF
