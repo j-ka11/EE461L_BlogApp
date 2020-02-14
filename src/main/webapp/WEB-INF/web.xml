@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-         
+   <!-- Chris Driving   -->     
   <servlet>
   <servlet-name>blogApp</servlet-name>
   
@@ -17,7 +17,7 @@
   <url-pattern>/blogApp</url-pattern>
   
   </servlet-mapping>
-         
+   <!-- Chris stopped Driving   --> 
          
          
   <welcome-file-list>
