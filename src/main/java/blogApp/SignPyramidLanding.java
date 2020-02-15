@@ -18,7 +18,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 
 public class SignPyramidLanding extends HttpServlet{
-	
+	//Chris Driving
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException{
 		UserService userService = UserServiceFactory.getUserService();
@@ -32,12 +32,12 @@ public class SignPyramidLanding extends HttpServlet{
 		greeting.setProperty("user", user);
 		greeting .setProperty("date", date);
 		greeting.setProperty("content", content);
-		
+		System.out.println(greeting);
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		datastore.put(greeting);
 		
 		resp.sendRedirect("/pyramidLanding.jsp?blogAppName="+blogAppName);
-		
+		//Chris Driving
 		
 		
 	}

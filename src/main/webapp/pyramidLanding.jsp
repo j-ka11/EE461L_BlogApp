@@ -17,6 +17,7 @@
 	</head>
 <body>
 <%
+//Chris Driving
 String blogAppName= request.getParameter("blogAppName");
 if(blogAppName ==null){
 	blogAppName="default";
@@ -44,7 +45,8 @@ to include your name with greetings you post.</p>
 %>
 <%
 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-Key blogAppKey = KeyFactory.createKey("Pyramid", blogAppName);
+Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
+
 Query query = new Query("Greeting", blogAppKey).addSort("date",Query.SortDirection.DESCENDING);
 List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
 if(greetings.isEmpty()){
@@ -72,6 +74,7 @@ if(greetings.isEmpty()){
 			<%
 			}
 		}
+//Chris stopped Driving
 %>	
 
 	
@@ -79,9 +82,10 @@ if(greetings.isEmpty()){
 
 
 
-<form action= "/sign" method=""post> 
+<form action= "/sign" method="post"> 
 <div> <textarea name="content" rows="3" cols="60"></textarea></div>
 <div><input type="submit" value ="Post Greeting"></div>
+<input type ="hidden" name= "blogAppName" value="${fn:escapeXml(blogAppName) }"/>
 </form>
 
 </body>
