@@ -4,12 +4,29 @@ import java.io.IOException;
 
 import javax.servlet.http.*;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
+
+
+
 public class PyramidLandingPage extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException{
-		resp.setContentType("text/plain");
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
 		
-		resp.getWriter().println("hello, Welcome to our blog about Pyramid Schemes");
+		if(user!=null) {
+			resp.setContentType("text/plain");
+			resp.getWriter().println("Welcome to Pyramid Schemes," +user.getNickname());
+			
+		}else
+		{
+			resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
+		}
+		
+		
 	}
 }
 //Chris Stopped Driving
