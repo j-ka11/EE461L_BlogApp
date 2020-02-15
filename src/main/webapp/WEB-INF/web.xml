@@ -9,7 +9,6 @@
   
   <servlet-class>blogApp.SignPyramidLanding</servlet-class>
   
-  
   </servlet>       
   
   <servlet-mapping>
