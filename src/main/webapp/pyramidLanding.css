@@ -1,7 +1,15 @@
 #titlePicture{
 	float: left;
 }
-#buttons{
+#tools{
+	float: right;
+}
+#post{
+	padding-top: 30px;
+	padding-right: 20px;
+	float: left;
+}
+#profile{
 	float: right;
 }
 #titleHeader{

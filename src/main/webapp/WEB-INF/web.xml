@@ -13,6 +13,15 @@
   	<url-pattern>/sign</url-pattern>
   </servlet-mapping>
    <!-- Chris stopped Driving   --> 
+   
+  <servlet>
+  	<servlet-name>post</servlet-name>
+  	<servlet-class>blogApp.PostingPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>post</servlet-name>
+  	<url-pattern>/post</url-pattern>
+  </servlet-mapping>
          
   <welcome-file-list>
     <welcome-file>pyramidLanding.jsp</welcome-file>

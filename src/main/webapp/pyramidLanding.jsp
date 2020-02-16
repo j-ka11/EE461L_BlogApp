@@ -20,10 +20,17 @@
 	<%
 	UserService userService = UserServiceFactory.getUserService();
 	String loginUrl = userService.createLoginURL(request.getRequestURI());
+	String logoutUrl = userService.createLogoutURL(request.getRequestURI());
 	%>
 	<script>
 	function goToSignIn(){
 		window.location.assign(document.getElementById("hiddenurl").value);
+	}
+	function goToSignOut(){
+		window.location.assign(document.getElementById("hiddenSignOut").value);
+	}
+	function makeAPost(){
+		window.location.assign("/post");
 	}
 	</script>
 	
@@ -39,14 +46,40 @@
 		<div id="upperToolbar">
 		<%
 		User user = userService.getCurrentUser();
+		if(user != null){
+			pageContext.setAttribute("user", user);
+		}
 		%>
 			<input type="hidden" name="loginURL" id="hiddenurl" value="<%=loginUrl%>">
+			<input type="hidden" name="logoutURL" id="hiddenSignOut" value="<%=logoutUrl%>">
 			
 			<div id="titlePicture">
 				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="97" height="145">
 			</div>
-			<div id="buttons">
-				<button type="button" onclick="goToSignIn()">Sign In</button>
+			<div id="tools">
+				<div id="post">
+					<%
+					if(user != null){
+					%>
+					<button type="button" onclick="makeAPost()">Make a new Post</button>
+					<%
+					}
+					%>
+				</div>
+				<div id="profile">
+				<%
+				if(user == null){
+				%>
+					<button type="button" onclick="goToSignIn()">Sign In</button>
+				<% 
+				}else{
+				%>
+					<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
+					<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
+				<%
+				}
+				%>
+			</div>
 			</div>
 		</div>
 		<div id="title">

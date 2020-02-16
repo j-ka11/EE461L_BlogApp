@@ -7,6 +7,7 @@
   
   <static-files>
   	<include path="/pyramidLanding.css"></include>
+  	<include path="/pyramidPosting.css"></include>
   	<include path="/**.jpg"></include>
   </static-files>
 
