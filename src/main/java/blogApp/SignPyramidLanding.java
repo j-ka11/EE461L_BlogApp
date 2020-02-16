@@ -29,9 +29,9 @@ public class SignPyramidLanding extends HttpServlet{
 		String content = req.getParameter("content");
 		Date date = new Date();
 		Entity greeting = new Entity("Greeting", blogAppKey);
-		greeting.setProperty("user", user);
-		greeting .setProperty("date", date);
-		greeting.setProperty("content", content);
+		greeting.setProperty("pyramid_user", user);
+		greeting .setProperty("pyramid_date", date);
+		greeting.setProperty("pyramid_content", content);
 		System.out.println(greeting);
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		datastore.put(greeting);

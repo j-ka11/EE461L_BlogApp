@@ -30,6 +30,7 @@
 		window.location.assign(document.getElementById("hiddenSignOut").value);
 	}
 	function makeAPost(){
+		
 		window.location.assign("/post");
 	}
 	</script>
@@ -87,8 +88,81 @@
 			the latest ways to get scammed!</h1>
 		</div>
 
+<%-- <% 
+ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+ Key guestbookKey = KeyFactory.createKey("blogAppName",blogAppName);
+ 
+ Query query = new Query("Greeting",guestbookKey).addSort("user",Query.SortDirection.DESCENDING).addSort("date",Query.SortDirection.DESCENDING);
+ List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+ if(greetings.isEmpty()){
+	%>
+	<p>Pyramid Blog '${fn: escapeXml(guestbookName)}'has no messages.</p>
+	<%
+	}else{
+	%>
+	<p>Messages in Pyramid Blog ' ${fn:escapeXml(guestbookName)}'.</p>
+	<%
+	for(Entity greeting: greetings){
+		pageContext.setAttribute("greeting_content",greeting.getProperty("content"));
+		if(greeting.getProperty("user")==null){
+			%>
+			<p> An anonymous person wrote: </p>
+			<%
+			}else{
+			pageContext.setAttribute("greeting_user",greeting.getProperty("user"));
+			%>
+			<p><b>${fn:escapeXml(greeting_user.nickname)} }</b>wrote:</p>
+			<% 
+		}
+		}
+	}
+	%>	
+	<blockquote>${fn:escapeXml(greeting_content)} }</blockquote>
+	 --%>
 		<div id="previews">
 			<h3>Most recent posts:</h3>
+			
+			<% 
+ 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+ 			Key blogAppKey = KeyFactory.createKey("blogApp",blogAppName);
+ 			
+			 Query query = new Query("Posting",blogAppKey).addSort("date",Query.SortDirection.DESCENDING);
+ 			List<Entity> postings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+ 			System.out.println(postings);
+ 			
+ 			if(postings.isEmpty()){
+			%>
+			<p>Pyramid Blog Schemes has no messages.</p>
+			<%
+			}else{
+			%>
+			<p>Messages in Pyramid Blog Schemes.</p>
+			<%
+			for(int posting=0;posting<3&&posting<postings.size();posting++){
+				pageContext.setAttribute("greeting_content",postings.get(posting).getProperty("content"));
+				pageContext.setAttribute("greeting_heading",postings.get(posting).getProperty("heading"));
+				if(postings.get(posting).getProperty("user")==null){
+					%>
+					<p> An anonymous person wrote: </p>
+					<%
+					}else{
+					pageContext.setAttribute("greeting_user",postings.get(posting).getProperty("user")); 
+					%>
+					<p><b>${fn:escapeXml(greeting_user.nickname)} </b>wrote:</p>
+					
+					<% 
+				}
+			%>
+			<blockquote>${fn:escapeXml(greeting_heading)} </blockquote>
+			<blockquote>${fn:escapeXml(greeting_content)} </blockquote>
+			<% 
+				}
+		}
+ 			
+ 			
+	%>
+	
+			
 			<div id="preview1" style="background-color: red;">
 				<p>Preview 1</p>
 			</div>
