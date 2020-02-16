@@ -12,9 +12,21 @@
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="com.google.appengine.api.datastore.KeyFactory"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/pyramidLanding.css">
+	<%
+	UserService userService = UserServiceFactory.getUserService();
+	String loginUrl = userService.createLoginURL(request.getRequestURI());
+	%>
+	<script>
+	function goToSignIn(){
+		window.location.assign(document.getElementById("hiddenurl").value);
+	}
+	</script>
+	
 </head>
 <body>
 	<%
@@ -25,11 +37,16 @@
 	%>
 	<div id="blogContainer">
 		<div id="upperToolbar">
+		<%
+		User user = userService.getCurrentUser();
+		%>
+			<input type="hidden" name="loginURL" id="hiddenurl" value="<%=loginUrl%>">
+			
 			<div id="titlePicture">
 				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="97" height="145">
 			</div>
 			<div id="buttons">
-				<button type="button">Sign In</button>
+				<button type="button" onclick="goToSignIn()">Sign In</button>
 			</div>
 		</div>
 		<div id="title">
