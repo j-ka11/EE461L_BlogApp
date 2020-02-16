@@ -44,9 +44,5 @@ public class PostingPage extends HttpServlet{
 		datastore.put(posting);
 		resp.sendRedirect("/pyramidLanding.jsp?blogAppName="+blogAppName);
 		
-		
-		
-		
-		
 	}
 }
