@@ -12,9 +12,22 @@
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="com.google.appengine.api.datastore.KeyFactory"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/pyramidLanding.css">
+	<%
+	UserService userService = UserServiceFactory.getUserService();
+	String loginUrl = userService.createLoginURL(request.getRequestURI());
+	%>
+	<script>
+	function goToSignIn(){
+		alert(document.getElementById("hiddenurl").value);
+		window.location.assign(document.getElementById("hiddenurl").value);
+	}
+	</script>
+	
 </head>
 <body>
 	<%
@@ -25,7 +38,15 @@
 	%>
 	<div id="blogContainer">
 		<div id="signIn">
-			<button type="button">Sign In</button>
+		<%
+		//UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		String reqURI = request.getRequestURI();
+		System.out.println(reqURI);
+		%>
+			<input type="hidden" name="loginURL" id="hiddenurl" value="<%=loginUrl%>">
+			<button type="button" onclick="goToSignIn()">Sign In</button>
+			
 		</div>
 		<div id="title">
 			<div id="titleHeader">
@@ -36,10 +57,10 @@
 				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="145" height="217">
 			</div>
 		</div>
-		<%
+	 	<%
 			//Chris Driving
-			UserService userService = UserServiceFactory.getUserService();
-			User user = userService.getCurrentUser();
+			/* UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser(); */
 			if (user != null) {
 				pageContext.setAttribute("user", user);
 		%>
@@ -96,7 +117,7 @@
 			//Chris stopped Driving
 		%>
 
-
+		
 
 
 

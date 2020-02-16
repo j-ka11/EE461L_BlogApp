@@ -41,4 +41,20 @@ public class SignPyramidLanding extends HttpServlet{
 		
 		
 	}
+	
+//	public void doGet(HttpServletRequest req,HttpServletResponse resp) 
+//			throws IOException{
+//		System.out.println("reached doGet in SignLanding");
+//		UserService userService = UserServiceFactory.getUserService();
+//		User user = userService.getCurrentUser();
+//		
+//	
+
+
+		//resp.sendRedirect("/pyramidLanding.jsp?blogAppName="+blogAppName);
+	
+	
+//		}
+//			
+//	}
 }
