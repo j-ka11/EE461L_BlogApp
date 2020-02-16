@@ -98,6 +98,7 @@
 			<div id="preview3" style="background-color: green;">
 				<p>Preview 3</p>
 			</div>
+			<a href="/allPosts">Click to see all posts</a>
 		</div>
 	</div>
 

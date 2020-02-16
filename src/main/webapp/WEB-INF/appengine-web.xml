@@ -8,6 +8,9 @@
   <static-files>
   	<include path="/pyramidLanding.css"></include>
   	<include path="/pyramidPosting.css"></include>
+  	<include path="/allPosts.css"></include>
+  	<include path="/pyramid.jfif"></include>
+  	<include path="/pyramid_copy.jfif"></include>
   	<include path="/**.jpg"></include>
   </static-files>
 

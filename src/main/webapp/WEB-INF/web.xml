@@ -22,6 +22,15 @@
   	<servlet-name>post</servlet-name>
   	<url-pattern>/post</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>allPosts</servlet-name>
+  	<servlet-class>blogApp.AllPyramidPosts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>allPosts</servlet-name>
+  	<url-pattern>/allPosts</url-pattern>
+  </servlet-mapping>
          
   <welcome-file-list>
     <welcome-file>pyramidLanding.jsp</welcome-file>

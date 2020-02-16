@@ -20,7 +20,6 @@ public class PostingPage extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) 
 		throws IOException{
 		String blogAppName = req.getParameter("blogAppName");
-		System.out.println("in get and name is: " + blogAppName);
 		resp.sendRedirect("/pyramidPosting.jsp?blogAppName="+blogAppName);
 	}
 	
