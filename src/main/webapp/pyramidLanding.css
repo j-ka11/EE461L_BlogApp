@@ -1,4 +1,14 @@
+#titlePicture{
+	float: left;
+}
+#buttons{
+	float: right;
+}
+#titleHeader{
+	padding-top: 80px;
+}
 #landingHeader{
 	color: red;
 	text-align: center;
+	padding-top: 110px;
 }

@@ -5,19 +5,14 @@
          version="3.1">
    <!-- Chris Driving   -->     
   <servlet>
-  <servlet-name>sign</servlet-name>
-  
-  <servlet-class>blogApp.SignPyramidLanding</servlet-class>
-  
+  	<servlet-name>sign</servlet-name>
+  	<servlet-class>blogApp.SignPyramidLanding</servlet-class>
   </servlet>       
-  
   <servlet-mapping>
-  <servlet-name>sign</servlet-name>
-  <url-pattern>/sign</url-pattern>
-  
+  	<servlet-name>sign</servlet-name>
+  	<url-pattern>/sign</url-pattern>
   </servlet-mapping>
    <!-- Chris stopped Driving   --> 
-         
          
   <welcome-file-list>
     <welcome-file>pyramidLanding.jsp</welcome-file>

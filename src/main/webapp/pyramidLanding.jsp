@@ -24,93 +24,31 @@
 		pageContext.setAttribute("blogAppName", blogAppName);
 	%>
 	<div id="blogContainer">
-		<div id="signIn">
-			<button type="button">Sign In</button>
+		<div id="upperToolbar">
+			<div id="titlePicture">
+				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="97" height="145">
+			</div>
+			<div id="buttons">
+				<button type="button">Sign In</button>
+			</div>
 		</div>
 		<div id="title">
-			<div id="titleHeader">
-				<h1 id="landingHeader" class="foreground">Stay up to date with
-				the latest ways to get scammed!</h1>
+			<h1 id="landingHeader" class="foreground">Stay up to date with
+			the latest ways to get scammed!</h1>
+		</div>
+
+		<div id="previews">
+			<h3>Most recent posts:</h3>
+			<div id="preview1" style="background-color: red;">
+				<p>Preview 1</p>
 			</div>
-			<div id="titlePicture">
-				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="145" height="217">
+			<div id="preview2" style="background-color: blue;">
+				<p>Preview 2</p>
+			</div>
+			<div id="preview3" style="background-color: green;">
+				<p>Preview 3</p>
 			</div>
 		</div>
-		<%
-			//Chris Driving
-			UserService userService = UserServiceFactory.getUserService();
-			User user = userService.getCurrentUser();
-			if (user != null) {
-				pageContext.setAttribute("user", user);
-		%>
-		<p>
-			Hello,${fn:escapeXml(user.nickname)}!(You can <a
-				href="<%=userService.createLogoutURL(request.getRequestURI())%>">sign
-				out</a>.)
-		</p>
-
-		<%
-			} else {
-		%>
-		<p>
-			Hello! <a
-				href="<%=userService.createLoginURL(request.getRequestURI())%>">Sign
-				In</a> to include your name with greetings you post.
-		</p>
-		<%
-			}
-		%>
-		<%
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
-
-			Query query = new Query("Greeting", blogAppKey).addSort("date", Query.SortDirection.DESCENDING);
-			List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
-			if (greetings.isEmpty()) {
-		%>
-		<p>PyramidBlog '${fn:escapeXml(blogAppName)}' has no messages.</p>
-		<%
-			} else {
-		%>
-		<p>Messages in PyramidBlog '${fn:escapeXml(blogAppName)}'.</p>
-		<%
-				for (Entity greeting : greetings) {
-					pageContext.setAttribute("greeting_content", greeting.getProperty("content"));
-					if (greeting.getProperty("user") == null) {
-		%>
-		<p>Anonymous person wrote:</p>
-		<%
-					} else {
-						pageContext.setAttribute("greeting_user", greeting.getProperty("user"));
-		%>
-		<p>
-			<b>${fn:escapeXml(greeting_user.nickname)}</b>wrote:
-		</p>
-		<%
-					}
-		%>
-		<blockquote>${fn:escapeXml(greeting_content)}</blockquote>
-		<%
-				}
-			}
-			//Chris stopped Driving
-		%>
-
-
-
-
-
-
-		<form action="/sign" method="post">
-			<div>
-				<textarea name="content" rows="3" cols="60"></textarea>
-			</div>
-			<div>
-				<input type="submit" value="Post Greeting">
-			</div>
-			<input type="hidden" name="blogAppName"
-				value="${fn:escapeXml(blogAppName) }" />
-		</form>
 	</div>
 
 </body>
