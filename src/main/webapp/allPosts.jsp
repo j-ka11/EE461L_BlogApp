@@ -44,7 +44,6 @@
 				Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
 				Query query = new Query("Posting", blogAppKey).addSort("date", Query.SortDirection.DESCENDING);
 				List<Entity> postings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
-				System.out.println(postings);
 				if(postings.isEmpty()){
 			%>
 			<h2 id="noPosts">Be the first to create a post!</h2>

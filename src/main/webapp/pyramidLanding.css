@@ -20,3 +20,18 @@
 	text-align: center;
 	padding-top: 110px;
 }
+.post{
+	background-color: gray;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.postTitle{
+	text-align: center;
+}
+.postMeta{
+	float: left;
+	margin-right: 20px;
+}
+.postContent{
+	float: left;
+}

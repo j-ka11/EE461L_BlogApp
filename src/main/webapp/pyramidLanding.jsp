@@ -18,9 +18,9 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="/pyramidLanding.css">
 	<%
-	UserService userService = UserServiceFactory.getUserService();
-	String loginUrl = userService.createLoginURL(request.getRequestURI());
-	String logoutUrl = userService.createLogoutURL(request.getRequestURI());
+		UserService userService = UserServiceFactory.getUserService();
+		String loginUrl = userService.createLoginURL(request.getRequestURI());
+		String logoutUrl = userService.createLogoutURL(request.getRequestURI());
 	%>
 	<script>
 	function goToSignIn(){
@@ -30,25 +30,29 @@
 		window.location.assign(document.getElementById("hiddenSignOut").value);
 	}
 	function makeAPost(){
+		
 		window.location.assign("/post");
 	}
+	function goToAllPosts(){
+		window.location.assign("/allPosts");
+	}
 	</script>
-	
 </head>
 <body>
 	<%
 		//Josh Driving
 		String blogAppName = "Schemes";
-
 		pageContext.setAttribute("blogAppName", blogAppName);
 	%>
 	<div id="blogContainer">
 		<div id="upperToolbar">
 		<%
-		User user = userService.getCurrentUser();
-		if(user != null){
-			pageContext.setAttribute("user", user);
-		}
+			User user = userService.getCurrentUser();
+			if(user != null){
+				pageContext.setAttribute("user", user);
+			}else{
+				pageContext.setAttribute("user", "anonymous");
+			}
 		%>
 			<input type="hidden" name="loginURL" id="hiddenurl" value="<%=loginUrl%>">
 			<input type="hidden" name="logoutURL" id="hiddenSignOut" value="<%=logoutUrl%>">
@@ -59,48 +63,75 @@
 			<div id="tools">
 				<div id="post">
 					<%
-					if(user != null){
+						if(user != null){
 					%>
 					<button type="button" onclick="makeAPost()">Make a new Post</button>
 					<%
-					}
+						}
 					%>
 				</div>
 				<div id="profile">
 				<%
-				if(user == null){
+					if(user == null){
 				%>
-					<button type="button" onclick="goToSignIn()">Sign In</button>
+				<button type="button" onclick="goToSignIn()">Sign In</button>
 				<% 
-				}else{
+					}else{
 				%>
-					<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
-					<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
+				<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
+				<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
 				<%
-				}
+					}
 				%>
-			</div>
+				</div>
 			</div>
 		</div>
 		<div id="title">
 			<h1 id="landingHeader" class="foreground">Stay up to date with
 			the latest ways to get scammed!</h1>
 		</div>
-
 		<div id="previews">
 			<h3>Most recent posts:</h3>
-			<div id="preview1" style="background-color: red;">
-				<p>Preview 1</p>
+			<% 
+ 				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+ 				Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
+ 			
+				Query query = new Query("Posting", blogAppKey).addSort("date", Query.SortDirection.DESCENDING);
+ 				List<Entity> postings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+ 				if(postings.isEmpty()){
+			%>
+			<p>Pyramid Blog Schemes has no messages.</p>
+			<%
+				}else{
+			%>
+			<p>(These still need to be turned into previews.)</p>
+			<%
+					for(int posting = 0; posting < 3 && posting < postings.size(); posting++){
+						pageContext.setAttribute("posting_user", postings.get(posting).getProperty("user"));
+						pageContext.setAttribute("posting_title", postings.get(posting).getProperty("heading"));
+						pageContext.setAttribute("posting_date", postings.get(posting).getProperty("date"));
+						pageContext.setAttribute("posting_content", postings.get(posting).getProperty("content"));
+			%>
+			<div class="post">
+				<div class="postTitle">
+					<h1>${fn:escapeXml(posting_title)}</h1>
+				</div>
+				<div class="postBody">
+					<div class="postMeta">
+						<h2>${fn:escapeXml(posting_user.nickname)}</h2>
+						<h4>${fn:escapeXml(posting_date)}</h4>
+					</div>
+					<div class="postContent">
+						<p>${fn:escapeXml(posting_content)}</p>
+					</div>
+				</div>
 			</div>
-			<div id="preview2" style="background-color: blue;">
-				<p>Preview 2</p>
-			</div>
-			<div id="preview3" style="background-color: green;">
-				<p>Preview 3</p>
-			</div>
-			<a href="/allPosts">Click to see all posts</a>
+			<%
+					}
+				}
+			%>
+			<button type="button" onclick="goToAllPosts()">See all posts</button>
 		</div>
 	</div>
-
 </body>
 </html>

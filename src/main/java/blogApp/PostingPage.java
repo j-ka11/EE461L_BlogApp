@@ -29,7 +29,6 @@ public class PostingPage extends HttpServlet{
 		User user= userService.getCurrentUser();
 		
 		String blogAppName = req.getParameter("blogAppName");
-		System.out.println(blogAppName);
 		Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
 		String content = req.getParameter("content");
 		String heading = req.getParameter("title");
@@ -39,8 +38,7 @@ public class PostingPage extends HttpServlet{
 		posting.setProperty("user", user);
 		posting.setProperty("date", date);
 		posting.setProperty("content", content);
-		posting.setProperty("heading",  heading);
-		System.out.println(posting);
+		posting.setProperty("heading", heading);
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		datastore.put(posting);
 		resp.sendRedirect("/pyramidLanding.jsp?blogAppName="+blogAppName);

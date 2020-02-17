@@ -27,7 +27,7 @@
 		<div id="blogPost">
 			<form action="/post" method="post">
 				<div id="headings">
-					<input type="text" name="title" value="Scheme Title"/>
+					<input type="text" name="heading" value="Scheme Title"/>
 				</div>
 				<div id="mainPost">
 					<textarea name="content" rows="10" cols="80"></textarea>
