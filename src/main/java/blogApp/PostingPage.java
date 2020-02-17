@@ -32,12 +32,14 @@ public class PostingPage extends HttpServlet{
 		System.out.println(blogAppName);
 		Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
 		String content = req.getParameter("content");
+		String heading = req.getParameter("title");
 		
 		Date date = new Date();
 		Entity posting = new Entity("Posting", blogAppKey);
 		posting.setProperty("user", user);
 		posting.setProperty("date", date);
 		posting.setProperty("content", content);
+		posting.setProperty("heading",  heading);
 		System.out.println(posting);
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		datastore.put(posting);

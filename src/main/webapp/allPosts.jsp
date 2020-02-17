@@ -18,25 +18,64 @@
 	<link rel="stylesheet" type="text/css" href="/allPosts.css">
 </head>
 <body>
+	<%
+		String blogAppName = "Schemes";
+		pageContext.setAttribute("blogAppName", blogAppName);
+	%>
 	<div id="postsWrapper">
+		<%
+			UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser();
+			if(user != null){
+				pageContext.setAttribute("user", user);
+			}else{
+				pageContext.setAttribute("user", "anonymous");
+			}
+		%>
 		<div id="title">
 			<h1 id="titleMessage">All Pyramid Posts</h1>
 		</div>
+		<%
+			
+		%>
 		<div id="posts">
+			<%
+				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+				Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
+				Query query = new Query("Posting", blogAppKey).addSort("date", Query.SortDirection.DESCENDING);
+				List<Entity> postings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+				System.out.println(postings);
+				if(postings.isEmpty()){
+			%>
+			<h2 id="noPosts">Be the first to create a post!</h2>
+			<%
+				}else{
+			%>
+			<%
+					for(Entity p : postings){
+						pageContext.setAttribute("posting_user", p.getProperty("user"));
+						pageContext.setAttribute("posting_title", p.getProperty("heading"));
+						pageContext.setAttribute("posting_date", p.getProperty("date"));
+						pageContext.setAttribute("posting_content", p.getProperty("content"));
+			%>
 			<div class="post">
 				<div class="postTitle">
-					<h1>post title</h1>
+					<h1>${fn:escapeXml(posting_title)}</h1>
 				</div>
 				<div class="postBody">
 					<div class="postMeta">
-						<p>post Author</p>
-						<p>post Date</p>
+						<h2>${fn:escapeXml(posting_user.nickname)}</h2>
+						<h4>${fn:escapeXml(posting_date)}</h4>
 					</div>
 					<div class="postContent">
-						<h3>post content</h3>
+						<p>${fn:escapeXml(posting_content)}</p>
 					</div>
 				</div>
 			</div>
+			<%
+					}
+				}
+			%>
 		</div>
 	</div>
 </body>

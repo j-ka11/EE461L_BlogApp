@@ -2,6 +2,9 @@ body{
 	background-image: url('pyramid.jfif');
 	background-size: 100%, 100%;
 }
+#noPosts{
+	color: #CD853F;
+}
 #titleMessage{
 	text-align: center;
 	color: #E8E3E3;
@@ -15,6 +18,7 @@ body{
 .post{
 	background-color: gray;
 	overflow: hidden;
+	margin-bottom: 20px;
 }
 .postTitle{
 	text-align: center;
