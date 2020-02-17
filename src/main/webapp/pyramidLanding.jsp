@@ -107,10 +107,11 @@
 			<p>(These still need to be turned into previews.)</p>
 			<%
 					for(int posting = 0; posting < 3 && posting < postings.size(); posting++){
+						
 						pageContext.setAttribute("posting_user", postings.get(posting).getProperty("user"));
 						pageContext.setAttribute("posting_title", postings.get(posting).getProperty("heading"));
 						pageContext.setAttribute("posting_date", postings.get(posting).getProperty("date"));
-						pageContext.setAttribute("posting_content", postings.get(posting).getProperty("content"));
+						pageContext.setAttribute("posting_preview", postings.get(posting).getProperty("preview"));
 			%>
 			<div class="post">
 				<div class="postTitle">
@@ -122,7 +123,7 @@
 						<h4>${fn:escapeXml(posting_date)}</h4>
 					</div>
 					<div class="postContent">
-						<p>${fn:escapeXml(posting_content)}</p>
+						<p>${fn:escapeXml(posting_preview)}</p>
 					</div>
 				</div>
 			</div>
