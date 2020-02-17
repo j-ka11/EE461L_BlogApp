@@ -33,6 +33,16 @@
 		
 		window.location.assign("/post");
 	}
+	function customize(){
+		document.getElementById("customizationBar").style.display = "block";
+		document.getElementById("post").style.display = "none";
+		document.getElementById("customization").style.display = "none";
+	}
+	function exitCustomization(){
+		document.getElementById("customizationBar").style.display = "none";
+		document.getElementById("post").style.display = "block";
+		document.getElementById("customization").style.display = "block";
+	}
 	function goToAllPosts(){
 		window.location.assign("/allPosts");
 	}
@@ -61,15 +71,31 @@
 				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="97" height="145">
 			</div>
 			<div id="tools">
-				<div id="post">
-					<%
-						if(user != null){
-					%>
-					<button type="button" onclick="makeAPost()">Make a new Post</button>
-					<%
-						}
-					%>
+				<div id="customizationBar">
+					<div id="customBarExit">
+						<button type="button" onclick="exitCustomization()">x</button>
+					</div>
+					<div id="customizations">
+						<div id="defaultStyle">
+							<button type="button">Default</button>
+						</div>
+						<div id="style1">
+							<button type="button">Hook 'em Horns</button>
+						</div>
+					</div>
 				</div>
+				<div id="post">
+				<%
+					if(user != null){
+				%>
+					<button type="button" onclick="makeAPost()">Make a new Post</button>
+				</div>
+				<div id="customization">
+					<button type="button" onclick="customize()">Customize</button>
+				</div>
+				<%
+					}
+				%>
 				<div id="profile">
 				<%
 					if(user == null){

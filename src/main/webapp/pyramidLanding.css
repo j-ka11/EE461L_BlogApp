@@ -4,7 +4,32 @@
 #tools{
 	float: right;
 }
+#customizationBar{
+	display: none;
+	padding-right: 20px;
+	float: left;
+}
+#customBarExit{
+	padding-top: 30px;
+	padding-right: 20px;
+	float: left;
+}
+#defaultStyle{
+	padding-top: 30px;
+	padding-right: 20px;
+	float: left;
+}
+#style1{
+	padding-top: 30px;
+	padding-right: 20px;
+	float: left;
+}
 #post{
+	padding-top: 30px;
+	padding-right: 20px;
+	float: left;
+}
+#customization{
 	padding-top: 30px;
 	padding-right: 20px;
 	float: left;
