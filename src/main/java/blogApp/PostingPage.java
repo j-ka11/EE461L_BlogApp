@@ -32,9 +32,8 @@ public class PostingPage extends HttpServlet{
 		Key blogAppKey = KeyFactory.createKey("blogApp", blogAppName);
 		String content = req.getParameter("content");
 		String p1 = req.getParameter("content").substring(0, content.length()/2);
-		System.out.println(p1);
 		String preview =p1.concat("...");
-		String heading = req.getParameter("title");
+		String heading = req.getParameter("heading");
 		
 		Date date = new Date();
 		Entity posting = new Entity("Posting", blogAppKey);
