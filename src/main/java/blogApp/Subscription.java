@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.*;
 public class Subscription extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException{
+		System.out.println("in doGet Subscription.java");
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtp.host", "localhost");
 		Session session = Session.getDefaultInstance(props, null);
@@ -27,12 +28,14 @@ public class Subscription extends HttpServlet{
 			
 			if(content != null) {
 				for(Entity e : subs) {
+					System.out.println("Starting message creation");
 					Message msg = new MimeMessage(session);
-					msg.setFrom(new InternetAddress("pyramid@testblog-268523.appspotmail.com", "Pyramid Scheme Admin"));
+					msg.setFrom(new InternetAddress("chris.joswin@gmail.com", "Pyramid Scheme Admin"));
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(e.getProperty("email").toString(), "Mr. User"));
 					msg.setSubject("New Pyramid Schemes");
 					msg.setText(content);
 					Transport.send(msg);
+					System.out.println("Sent message");
 				}
 			}
 		}catch(Exception e) {

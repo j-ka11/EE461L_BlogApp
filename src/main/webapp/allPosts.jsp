@@ -16,11 +16,18 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/allPosts.css">
+	<script>
+	function goBack(){
+		
+		window.location.assign("/");
+	}
+	</script>
 </head>
 <body>
 	<%
 		String blogAppName = "Schemes";
 		pageContext.setAttribute("blogAppName", blogAppName);
+		
 	%>
 	<div id="postsWrapper">
 		<%
@@ -34,6 +41,7 @@
 		%>
 		<div id="title">
 			<h1 id="titleMessage">All Pyramid Posts</h1>
+			<button type="button" onclick="goBack()">Go Back To Home</button>
 		</div>
 		<%
 			

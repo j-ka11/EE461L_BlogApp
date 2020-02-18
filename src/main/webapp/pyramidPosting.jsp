@@ -14,6 +14,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
+<script>
+function goMainBack(){
+	window.location.assign("/");
+}
+</script>
 <head>
 	<link rel="stylesheet" type="text/css" href="/pyramidPosting.css">
 </head>
@@ -36,7 +41,9 @@
 					<input type="submit" value="Post Article"/>
 					<input type="hidden" name="blogAppName" value="${fn:escapeXml(blogAppName)}"/>
 				</div>
+				<button type="button" onclick="goMainBack()">Go Back To Home</button>
 			</form>
+	
 		</div>
 	</div>
 </body>

@@ -4,6 +4,6 @@
 		<url>/subscribe</url>
 		<description>Daily email service</description>
 		<schedule>every 24 hours</schedule>
-		<timezone>America/Chicago</timezone>
+		 <timezone>America/Chicago</timezone>
 	</cron>
 </cronentries>
