@@ -13,10 +13,16 @@
 <%@ page import="com.google.appengine.api.datastore.KeyFactory"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%
+	String styleSheet = "default.css";
+%>
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/pyramidLanding.css">
+	<%
+		pageContext.setAttribute("stylePage", "/pyramidLanding.css");
+	%>
+	<link id="landingStyle" rel="stylesheet" type="text/css" href="/pyramidLanding.css">
 	<%
 		UserService userService = UserServiceFactory.getUserService();
 		String loginUrl = userService.createLoginURL(request.getRequestURI());
@@ -65,7 +71,42 @@
 		
 		window.location.assign("/post");
 	}
+	function customize(){
+		document.getElementById("customizationBar").style.display = "block";
+		document.getElementById("post").style.display = "none";
+		document.getElementById("customization").style.display = "none";
+	}
+	function customizeDefault(){
+		document.getElementById("landingStyle").href = "/pyramidLanding.css";
+		pageContext.setAttribute("stylePage", "/pyramidLanding.css");
+		styleSheet = "default.css";
+		window.location.reload(true);
+	}
+	function customizeLonghorn(){
+		document.getElementById("landingStyle").href = "/longhorn.css";
+		pageContext.setAttribute("stylePage", "/longhorn.css");
+		styleSheet = "longhorn.css";
+		window.location.reload(true);
+	}
+
+	function exitCustomization(){
+		document.getElementById("customizationBar").style.display = "none";
+		document.getElementById("post").style.display = "block";
+		document.getElementById("customization").style.display = "block";
+	}
 	function goToAllPosts(){
+		var newStyle = "";
+		var fullStyle = document.getElementById("landingStyle").href;
+		var currStyle = fullStyle.slice(22);
+		if(currStyle.localeCompare("pyramidLanding.css") == 0){
+			newStyle = "allPosts";
+		}else if(currStyle.localeCompare("longhorn.css") == 0){
+			newStyle = "allPostsLonghorn";
+		}
+		var stylePost = new XMLHttpRequest();
+		var postUrl = '/allPosts?styleSheet=' + newStyle;
+		stylePost.open('POST', postUrl, false);
+		stylePost.send(newStyle);
 		window.location.assign("/allPosts");
 	}
 	</script>
@@ -91,28 +132,31 @@
 			<input type="hidden" name="user" id="hiddenUser" value="${fn:escapeXml(user)}">
 			
 			<div id="titlePicture">
-				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="97" height="145">
+				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="129" height="193">
 			</div>
 			<div id="tools">
-				<div id="post">
-					<%
-						if(user != null){
-					%>
-					<button type="button" onclick="makeAPost()">Make a new Post</button>
-					<%
-						}
-					%>
+				<div id="customizationBar">
+					<div id="customBarExit">
+						<button type="button" onclick="exitCustomization()">x</button>
+					</div>
+					<div id="customizations">
+						<div id="defaultStyle">
+							<button type="button" onclick="customizeDefault()">Default</button>
+						</div>
+						<div id="style1">
+							<button type="button" onclick="customizeLonghorn()">Hook 'em Horns</button>
+						</div>
+					</div>
 				</div>
-				<div id="profile">
+				<div id="post">
 				<%
-					if(user == null){
+					if(user != null){
 				%>
-				<button type="button" onclick="goToSignIn()">Sign In</button>
-				<% 
-					}else{
-				%>
-				<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
-				<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
+					<button type="button" onclick="makeAPost()">Make a new Post</button>
+				</div>
+				<div id="customization">
+					<button type="button" onclick="customize()">Customize</button>
+				</div>
 				<%
 					userService = UserServiceFactory.getUserService();
 					user = userService.getCurrentUser();
@@ -136,6 +180,19 @@
 				<%
 					}
 				%>
+				<div id="profile">
+					<%
+						if(user == null){
+					%>
+					<button type="button" onclick="goToSignIn()">Sign In</button>
+					<% 
+						}else{
+					%>
+					<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
+					<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>

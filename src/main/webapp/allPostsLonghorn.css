@@ -1,0 +1,34 @@
+#postsWrapper{
+	background-color: #ABA9A6;
+}
+#noPosts{
+	color: #BF5700;
+}
+#titleMessage{
+	text-align: center;
+	color: #BF5700;
+}
+#title{
+	padding-bottom: 200px;
+	background-image: url('longhorn_silhouette.jpg');
+	background-repeat: no-repeat;
+	background-position: 50% 10%;
+}
+.post{
+	background-color: #BF5700;
+	overflow: hidden;
+	margin-bottom: 40px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+.postTitle{
+	text-align: center;
+}
+.postMeta{
+	float: left;
+	margin-right: 20px;
+	margin-left: 10px;
+}
+.postContent{
+	float: left;
+}

@@ -13,15 +13,19 @@
 <%@ page import="com.google.appengine.api.datastore.KeyFactory"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%
+	String styleSheet = "/" + request.getParameter("styleSheet") + ".css";
+%>
+
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/allPosts.css">
 	<script>
 	function goBack(){
 		
 		window.location.assign("/");
 	}
 	</script>
+	<link rel="stylesheet" type="text/css" href="<%=styleSheet%>">
 </head>
 <body>
 	<%

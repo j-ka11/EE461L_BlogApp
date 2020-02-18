@@ -1,3 +1,6 @@
+#blogContainer{
+	background-color: #ABA9A6;
+}
 #titlePicture{
 	float: left;
 }
@@ -36,29 +39,31 @@
 }
 #profile{
 	float: right;
-}
-#signOutButton{
-	float: left;
-	margin-right: 10px;
-}
-#subscribeButton{
-	float: left;
-}
-#unsubscribeButton{
-	float: left;
+	padding-right: 10px;
 }
 #titleHeader{
 	padding-top: 80px;
 }
+#title{
+	background-image: url('longhorn_silhouette.jpg');
+	background-repeat: no-repeat;
+	background-position: 50% 10%;
+}
 #landingHeader{
-	color: red;
+	color: #BF5700;
 	text-align: center;
-	padding-top: 110px;
+	padding-top: 100px;
+	padding-bottom: 45px;
+	/*background-image: url('longhorn_silhouette.jpg');
+	background-repeat: no-repeat;
+	background-position: 50% 100%;*/
 }
 .post{
-	background-color: gray;
+	background-color: #BF5700;
 	overflow: hidden;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
+	margin-left: 40px;
+	margin-right: 40px;
 }
 .postTitle{
 	text-align: center;
@@ -66,6 +71,7 @@
 .postMeta{
 	float: left;
 	margin-right: 20px;
+	margin-left: 10px;
 }
 .postContent{
 	float: left;
