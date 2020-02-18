@@ -16,7 +16,10 @@
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/pyramidLanding.css">
+	<%
+		pageContext.setAttribute("stylePage", "/pyramidLanding.css");
+	%>
+	<link id="landingStyle" rel="stylesheet" type="text/css" href="/pyramidLanding.css">
 	<%
 		UserService userService = UserServiceFactory.getUserService();
 		String loginUrl = userService.createLoginURL(request.getRequestURI());
@@ -38,12 +41,38 @@
 		document.getElementById("post").style.display = "none";
 		document.getElementById("customization").style.display = "none";
 	}
+	function customizeDefault(){
+		document.getElementById("landingStyle").href = "/pyramidLanding.css";
+		pageContext.setAttribute("stylePage", "/pyramidLanding.css");
+		window.location.reload(true);
+	}
+	function customizeLonghorn(){
+		document.getElementById("landingStyle").href = "/longhorn.css";
+		pageContext.setAttribute("stylePage", "/longhorn.css");
+		window.location.reload(true);
+	}
+
 	function exitCustomization(){
 		document.getElementById("customizationBar").style.display = "none";
 		document.getElementById("post").style.display = "block";
 		document.getElementById("customization").style.display = "block";
 	}
 	function goToAllPosts(){
+		var newStyle = "";
+		var fullStyle = document.getElementById("landingStyle").href;
+		var currStyle = fullStyle.slice(22);
+		if(currStyle.localeCompare("pyramidLanding.css") == 0){
+			newStyle = "allPosts.css";
+		}else if(currStyle.localeCompare("longhorn.css") == 0){
+			newStyle = "allPostsLonghorn.css";
+		}
+		var stylePost = new XMLHttpRequest();
+		stylePost.onreadystatechange = function(){
+			if(stylePost.readyState == 4 && stylePost.status == 200){
+			}
+		}
+		stylePost.open('POST', '/allPosts', true);
+		stylePost.send(newStyle);
 		window.location.assign("/allPosts");
 	}
 	</script>
@@ -68,7 +97,7 @@
 			<input type="hidden" name="logoutURL" id="hiddenSignOut" value="<%=logoutUrl%>">
 			
 			<div id="titlePicture">
-				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="97" height="145">
+				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="129" height="193">
 			</div>
 			<div id="tools">
 				<div id="customizationBar">
@@ -77,10 +106,10 @@
 					</div>
 					<div id="customizations">
 						<div id="defaultStyle">
-							<button type="button">Default</button>
+							<button type="button" onclick="customizeDefault()">Default</button>
 						</div>
 						<div id="style1">
-							<button type="button">Hook 'em Horns</button>
+							<button type="button" onclick="customizeLonghorn()">Hook 'em Horns</button>
 						</div>
 					</div>
 				</div>
@@ -97,18 +126,18 @@
 					}
 				%>
 				<div id="profile">
-				<%
-					if(user == null){
-				%>
-				<button type="button" onclick="goToSignIn()">Sign In</button>
-				<% 
-					}else{
-				%>
-				<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
-				<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
-				<%
-					}
-				%>
+					<%
+						if(user == null){
+					%>
+					<button type="button" onclick="goToSignIn()">Sign In</button>
+					<% 
+						}else{
+					%>
+					<p id="welcomeMsg">Hello, ${fn:escapeXml(user.nickname)}!</p>
+					<button id="signOutButton" type="button" onclick="goToSignOut()">Sign Out</button>
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>

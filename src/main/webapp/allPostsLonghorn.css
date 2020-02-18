@@ -1,0 +1,32 @@
+body{
+	background-image: url('pyramid.jfif');
+	background-size: 100%, 100%;
+}
+#noPosts{
+	color: #CD853F;
+}
+#titleMessage{
+	text-align: center;
+	color: #E8E3E3;
+}
+#title{
+	padding-bottom: 200px;
+	/*background-image: url('pyramid_copy.jfif');
+	background-size: 100%, 30%;
+	background-repeat: no-repeat;*/
+}
+.post{
+	background-color: gray;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.postTitle{
+	text-align: center;
+}
+.postMeta{
+	float: left;
+	margin-right: 20px;
+}
+.postContent{
+	float: left;
+}

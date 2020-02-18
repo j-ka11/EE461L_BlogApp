@@ -9,6 +9,8 @@
   	<include path="/pyramidLanding.css"></include>
   	<include path="/pyramidPosting.css"></include>
   	<include path="/allPosts.css"></include>
+  	<include path="/longhorn.css"></include>
+  	<include path="/allPostsLonghorn.css"></include>
   	<include path="/pyramid.jfif"></include>
   	<include path="/pyramid_copy.jfif"></include>
   	<include path="/**.jpg"></include>

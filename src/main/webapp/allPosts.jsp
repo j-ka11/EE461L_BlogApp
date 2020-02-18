@@ -15,7 +15,7 @@
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/allPosts.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getParameter("stylePage")%>">
 </head>
 <body>
 	<%
