@@ -14,32 +14,32 @@ import com.google.appengine.api.datastore.*;
 public class Subscription extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException{
-		System.out.println("in doGet Subscription.java");
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtp.host", "localhost");
 		Session session = Session.getDefaultInstance(props, null);
 		
 		try {
 			Key subKey = KeyFactory.createKey("subscription", "sub");
+			Key postKey = KeyFactory.createKey("blogApp", "Schemes");
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			Query query = new Query("NewSubs", subKey);
 			List<Entity> subs = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
-			String content = this.createContent(subs);
+			query = new Query("Posting", postKey);
+			List<Entity> posts = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+			String content = this.createContent(posts);
 			
 			if(content != null) {
 				for(Entity e : subs) {
-					System.out.println("Starting message creation");
 					Message msg = new MimeMessage(session);
 					msg.setFrom(new InternetAddress("chris.joswin@gmail.com", "Pyramid Scheme Admin"));
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(e.getProperty("email").toString(), "Mr. User"));
 					msg.setSubject("New Pyramid Schemes");
 					msg.setText(content);
 					Transport.send(msg);
-					System.out.println("Sent message");
 				}
 			}
 		}catch(Exception e) {
-			System.out.println("got an exception");
+			e.printStackTrace();
 		}
 	}
 	
@@ -68,20 +68,19 @@ public class Subscription extends HttpServlet{
 		s.close();
 	}
 	
-	private String createContent(List<Entity> subs) {
+	private String createContent(List<Entity> posts) {
 		String content = "Here are the new pyramid scheme posts from the last 24 hours!\n\n";
 		boolean newSchemes = false;
 		Date currDate = new Date();
 		long currTime = currDate.getTime();
 		Date oldDate = new Date(currTime - 3600000);
-		for(Entity e : subs) {
+		for(Entity e : posts) {
 			Date dateCheck = (Date) e.getProperty("date");
-			System.out.println(dateCheck);
 			if(dateCheck.after(oldDate)) {
 				String newPostContent = e.getProperty("content").toString();
 				String newPostAuthor = e.getProperty("user").toString();
 				String newPostTitle = e.getProperty("heading").toString();
-				content.concat(newPostAuthor + "\n" + newPostTitle + "\n" + newPostContent + "\n\n");
+				content = content + newPostAuthor + "\n" + newPostTitle + "\n" + newPostContent + "\n\n";
 				newSchemes = true;
 			}
 		}
