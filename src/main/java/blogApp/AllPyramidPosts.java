@@ -6,16 +6,16 @@ import java.util.Scanner;
 import javax.servlet.http.*;
 
 public class AllPyramidPosts extends HttpServlet{
-	private String styleFile = "/allPosts.css";
+	private static String styleSheet = "allPosts";
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) 
 		throws IOException{
-		System.out.println("redirecting " + styleFile);
-		resp.sendRedirect("/allPosts.jsp?blogAppName=Schemes&stylePage=" + styleFile);
+		resp.sendRedirect("/allPosts.jsp?blogAppName=Schemes&styleSheet=" + styleSheet);
 	}
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException{
-		Scanner s = new Scanner(req.getInputStream(), "UTF-8");
-		styleFile = "/".concat(s.next());
+		Scanner s = new Scanner(req.getInputStream());
+		styleSheet = s.next();
 		s.close();
 	}
 }

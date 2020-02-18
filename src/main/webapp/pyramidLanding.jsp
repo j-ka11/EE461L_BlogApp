@@ -13,6 +13,9 @@
 <%@ page import="com.google.appengine.api.datastore.KeyFactory"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%
+	String styleSheet = "default.css";
+%>
 
 <html>
 <head>
@@ -44,11 +47,13 @@
 	function customizeDefault(){
 		document.getElementById("landingStyle").href = "/pyramidLanding.css";
 		pageContext.setAttribute("stylePage", "/pyramidLanding.css");
+		styleSheet = "default.css";
 		window.location.reload(true);
 	}
 	function customizeLonghorn(){
 		document.getElementById("landingStyle").href = "/longhorn.css";
 		pageContext.setAttribute("stylePage", "/longhorn.css");
+		styleSheet = "longhorn.css";
 		window.location.reload(true);
 	}
 
@@ -62,16 +67,13 @@
 		var fullStyle = document.getElementById("landingStyle").href;
 		var currStyle = fullStyle.slice(22);
 		if(currStyle.localeCompare("pyramidLanding.css") == 0){
-			newStyle = "allPosts.css";
+			newStyle = "allPosts";
 		}else if(currStyle.localeCompare("longhorn.css") == 0){
-			newStyle = "allPostsLonghorn.css";
+			newStyle = "allPostsLonghorn";
 		}
 		var stylePost = new XMLHttpRequest();
-		stylePost.onreadystatechange = function(){
-			if(stylePost.readyState == 4 && stylePost.status == 200){
-			}
-		}
-		stylePost.open('POST', '/allPosts', true);
+		var postUrl = '/allPosts?styleSheet=' + newStyle;
+		stylePost.open('POST', postUrl, false);
 		stylePost.send(newStyle);
 		window.location.assign("/allPosts");
 	}
