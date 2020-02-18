@@ -12,6 +12,16 @@
 #profile{
 	float: right;
 }
+#signOutButton{
+	float: left;
+	margin-right: 10px;
+}
+#subscribeButton{
+	float: left;
+}
+#unsubscribeButton{
+	float: left;
+}
 #titleHeader{
 	padding-top: 80px;
 }

@@ -31,6 +31,15 @@
   	<servlet-name>allPosts</servlet-name>
   	<url-pattern>/allPosts</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>subscription</servlet-name>
+  	<servlet-class>blogApp.Subscription</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>subscription</servlet-name>
+  	<url-pattern>/subscribe</url-pattern>
+  </servlet-mapping>
          
   <welcome-file-list>
     <welcome-file>pyramidLanding.jsp</welcome-file>
