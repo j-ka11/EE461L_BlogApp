@@ -135,7 +135,7 @@
 				<img id="landingImg" src="/landingImage.jpg" alt="Girl holding money" width="129" height="193">
 			</div>
 			<div id="tools">
-				<div id="customizationBar">
+				<div id="customizationBar" style="display: none;">
 					<div id="customBarExit">
 						<button type="button" onclick="exitCustomization()">x</button>
 					</div>
